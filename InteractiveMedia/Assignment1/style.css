@@ -7,7 +7,7 @@ body {
 }
 
 
-.front {
+h1,p {
   font-family: "Edu VIC WA NT Hand", cursive;
   font-optical-sizing: auto;
   /* font-weight: <300>; */
