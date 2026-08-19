@@ -1,15 +1,82 @@
 /* This is style of the whole page*/
 
+
+
 body {
-    background-color: mistyrose;
+    
      h4 {color:#851423}
+     background-color: white;
      
 }
 
 
-h1,p, ul {
+p, ul {
   font-family: "Edu VIC WA NT Hand", cursive;
   font-optical-sizing: auto;
   /* font-weight: <300>; */
   font-style: normal;
+  display: block;
+  flex-direction: column;
+  justify-content:center
+}
+/* text-indent = length of empty space Cr.mdn */
+p {
+  text-indent: 40px;
+}
+
+/* 
+I learn how to place title in the center and add background video from YouTube. 
+  "How To Add Video Background In Website Using HTML And CSS Step By Step Tutorial"
+  link: https://www.youtube.com/watch?v=znqUwx0b0HI
+*/
+.headSetting {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  padding: 0 5%;
+  display: flex;
+  justify-content: center; /* center horizonto */
+  align-items: center; /* center verticle */
+
+}
+
+.title {
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 150px;
+  color:rgb(128, 0, 90);
+  font-weight: 600;
+
+  /* Gemini is used, quote: In css, can I add shdow effect to h1? */
+  text-shadow: 4px 4px 8px white;
+}
+
+/* Explre link style + add boarder */
+.title a {
+  text-decoration: none;
+  display: inline-block;
+  color: whitesmoke;
+  font-size: 24px;
+  border: 2px solid whitesmoke;
+  padding: 14px 70px; /* 14 top and bottom, 70 left and right*/
+  border-radius: 50px;
+  margin-top: 20px;
+}
+
+.bgVideo {
+  position: absolute;
+  right: 45px;
+  bottom: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1; /* push video to the back */
+}
+
+/* this target the whole document to scroll smothly */
+html {
+  scroll-behavior: smooth;
 }
