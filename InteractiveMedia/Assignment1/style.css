@@ -146,3 +146,17 @@ section {
   margin: 30;
 }
 
+.backHome {
+  
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  background-color: rgb(111, 7, 70);
+  color: whitesmoke;
+  margin: 30px;
+  font-size: 24px;
+  border: 2px solid rgb(111, 7, 70);
+  padding: 14px 70px; /* 14 top and bottom, 70 left and right*/
+  border-radius: 50px;
+  margin-top: 20px;
+}
