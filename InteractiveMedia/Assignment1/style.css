@@ -6,10 +6,12 @@ HTML & CSS for Absolute Beginners: Text alignment
 link: https://www.youtube.com/watch?v=j4NcMQfYs64
 */
 
+body {
+  background:linear-gradient(white, mistyrose, rgb(250, 212, 250), rgb(224, 224, 253));
+}
 main {
     
-    h4 {color:#851423}
-    background: wheats;
+    h4 {color:#851423}    
     margin: 200px;
      
 }
@@ -138,7 +140,8 @@ quote: "how to make css fade from nothing to full text then stay like that"
 
 .fadeIn {
 /* apply fade animation*/
-animation: fade-in 3s ease-in forwards; /* ease-in = fade slow in the beginning and fasr at the end, forward = freeze animation in the last frame */
+animation: fade-in 3s ease-in forwards; /* ease-in = fade slow in the beginning and fasr at the end,
+                                            forward = freeze animation in the last frame */
  
 }
 
@@ -150,13 +153,12 @@ section {
   
   text-decoration: none;
   text-align: center;
-  display: block;
+  display: block; /* */
   background-color: rgb(111, 7, 70);
   color: whitesmoke;
   margin: 30px;
   font-size: 24px;
-  border: 2px solid rgb(111, 7, 70);
   padding: 14px 70px; /* 14 top and bottom, 70 left and right*/
-  border-radius: 50px;
+  border-radius: 50px; /* make the corner of border round*/
   margin-top: 20px;
 }
