@@ -10,16 +10,18 @@ main {
     
     h4 {color:#851423}
     background: wheats;
-    margin: 110px;
+    margin: 200px;
      
 }
 
 h4 {
   font-family: "Playfair Display", serif;
+  font-size: 32px;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
+
 
 
 p, ul {
@@ -31,7 +33,7 @@ p, ul {
   justify-content:center
 }
 h1 {
-  font-family: "Roboto Slab", serif;
+  font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
@@ -82,21 +84,35 @@ I learned how to place title in the center and add background video from YouTube
   margin-top: 20px;
 }
 
+/* Problem:: My background video is too wide for the page, making it move left or right
+              and not fit the page
+
+*/
+
+/* stop page from moveing left and right*/
+
 .bgVideo {
   position: absolute;
-  right: 45px;
-  bottom: 10px;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: center;
   z-index: -1; /* push video to the back */
+}
+/* make sure that the page not slide horizontoly*/
+html, body {
+  overflow-x: hidden;
 }
 
 /* this target the whole document to scroll smothly */
 html {
   scroll-behavior: smooth;
 }
+
+
 
 /* Fade in Animation
 source 1: CodeWithSalar, "Text Fade in and Fade Out Using CSS Animation | CSS tips and tricks"
@@ -124,5 +140,9 @@ quote: "how to make css fade from nothing to full text then stay like that"
 /* apply fade animation*/
 animation: fade-in 3s ease-in forwards; /* ease-in = fade slow in the beginning and fasr at the end, forward = freeze animation in the last frame */
  
-
 }
+
+section {
+  margin: 30;
+}
+
