@@ -1,23 +1,40 @@
-/* This is style of the whole page*/
 
+/* 
+I leaned text alighnment from Youtube
+Name: 
+HTML & CSS for Absolute Beginners: Text alignment
+link: https://www.youtube.com/watch?v=j4NcMQfYs64
+*/
 
-
-body {
+main {
     
-     h4 {color:#851423}
-     background-color: white;
+    h4 {color:#851423}
+    background: wheats;
+    margin: 110px;
      
+}
+
+h4 {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 
 p, ul {
-  font-family: "Edu VIC WA NT Hand", cursive;
-  font-optical-sizing: auto;
-  /* font-weight: <300>; */
+  font-family: "Oldenburg", serif;
+  font-weight: 400;
   font-style: normal;
   display: block;
   flex-direction: column;
   justify-content:center
+}
+h1 {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 /* text-indent = length of empty space Cr.mdn */
 p {
@@ -25,7 +42,7 @@ p {
 }
 
 /* 
-I learn how to place title in the center and add background video from YouTube. 
+I learned how to place title in the center and add background video from YouTube. 
   "How To Add Video Background In Website Using HTML And CSS Step By Step Tutorial"
   link: https://www.youtube.com/watch?v=znqUwx0b0HI
 */
@@ -45,19 +62,19 @@ I learn how to place title in the center and add background video from YouTube.
 }
 
 .title h1 {
-  font-size: 150px;
-  color:rgb(128, 0, 90);
+  font-size: 100px;
+  color:rgb(117, 4, 83);
   font-weight: 600;
 
   /* Gemini is used, quote: In css, can I add shdow effect to h1? */
   text-shadow: 4px 4px 8px white;
 }
 
-/* Explre link style + add boarder */
+/* Expolre link style + add boarder */
 .title a {
   text-decoration: none;
   display: inline-block;
-  color: whitesmoke;
+  color: white;
   font-size: 24px;
   border: 2px solid whitesmoke;
   padding: 14px 70px; /* 14 top and bottom, 70 left and right*/
@@ -79,4 +96,33 @@ I learn how to place title in the center and add background video from YouTube.
 /* this target the whole document to scroll smothly */
 html {
   scroll-behavior: smooth;
+}
+
+/* Fade in Animation
+source 1: CodeWithSalar, "Text Fade in and Fade Out Using CSS Animation | CSS tips and tricks"
+link: https://www.youtube.com/watch?v=jD_8FLePHZU
+
+source 2: Kalman Web Design, "How to Create CSS Fade Animation with Keyframes | Step-by-step Tutorial"
+link: https://www.youtube.com/watch?v=hEG_N-GLKFU
+
+
+source 3: Gemini is used 
+quote: "how to make css fade from nothing to full text then stay like that"
+*/
+ 
+ @keyframes fade-in{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+
+}
+
+.fadeIn {
+/* apply fade animation*/
+animation: fade-in 3s ease-in forwards; /* ease-in = fade slow in the beginning and fasr at the end, forward = freeze animation in the last frame */
+ 
+
 }
