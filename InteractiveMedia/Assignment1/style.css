@@ -6,9 +6,12 @@ HTML & CSS for Absolute Beginners: Text alignment
 link: https://www.youtube.com/watch?v=j4NcMQfYs64
 */
 
+/* add background color to be rainbow gradient  */
 body {
   background:linear-gradient(white, mistyrose, rgb(250, 225, 250), rgb(224, 224, 253));
 }
+
+/* set front and style of front for p,h1,h4, ul */
 main {
     
     h4 {color:#851423}    
@@ -60,6 +63,7 @@ I learned how to place title in the center and add background video from YouTube
   align-items: center; /* center verticle */
 
 }
+
 
 .title {
   text-align: center;
@@ -128,6 +132,8 @@ source 3: Gemini is used
 quote: "how to make css fade from nothing to full text then stay like that"
 */
  
+/* set oparcity to start from 0 to 1 so the text start from nothing and full oparcity */
+
  @keyframes fade-in{
   from {
     opacity: 0;
@@ -145,10 +151,12 @@ animation: fade-in 3s ease-in forwards; /* ease-in = fade slow in the beginning 
  
 }
 
+/* add gab between the edge of the screen and text */
 section {
   margin: 30;
 }
 
+/* backHome class is a class for home button at the end of the page to go back to the top of the page */
 .backHome {
   
   text-decoration: none;
