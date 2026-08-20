@@ -78,7 +78,7 @@ I learned how to place title in the center and add background video from YouTube
   text-shadow: 4px 4px 8px white;
 }
 
-/* Expolre link style + add boarder */
+/* "Expolre" button style + add boarder */
 .title a {
   text-decoration: none;
   display: inline-block;
