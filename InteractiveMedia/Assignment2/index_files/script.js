@@ -1,4 +1,4 @@
-const video = document.querySelector("#custom-video-player");
+const video = document.querySelector("#video-player");
 const playPauseBtn = document.querySelector("#play-pause-btn");
 const playPauseImg = document.querySelector("#play-pause-img");
 const progressBar = document.querySelector("#progress-bar-fill");
@@ -18,4 +18,27 @@ function updateProgressBar() {
   const value = (video.currentTime / video.duration) * 100;
   progressBar.style.width = value + "%";
 }
-// Add other functionalities here
+
+// Click on sidebar to choose sound and environment
+
+//find videos
+// querySelector = similar to getElementById but more versatile
+// = returns the first HTML element that matches a specified CSS selector whether it is class, id ot tag like p, i, h1
+let videoPlayer = document.querySelector('#video-player')
+//find all environment button
+let environmentButtons = document.querySelectorAll('.sidebar ul li a')
+
+//when an element is clicked
+//forEach = loop that applies the exact same logic to all of button (environment) on sidebar
+environmentButtons.forEach(function(environment){
+  environment.onclick = function() {
+    let videoName = environment.dataset.video
+
+    videoPlayer.src = videoName
+
+    videoPlayer.load()
+    videoPlayer.play()
+  }
+})
+
+  

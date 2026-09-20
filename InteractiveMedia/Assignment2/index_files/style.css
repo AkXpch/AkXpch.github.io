@@ -1,8 +1,8 @@
 :root {
-  --primary-bg-color: #f4f4f4;
-  --text-color: #333;
-  --main-bg-color: #333;
-  --main-text-color: #fff;
+  --primary-bg-color: #faf7f0;
+  --text-color: #494846;
+  --main-bg-color: #d7d1c1;
+  --main-text-color: #b27457;
   --main-btn-bg-color: #938989;
 }
 
@@ -13,26 +13,31 @@ ul {
   margin: 0;
   padding: 0;
 }
-
+/* remove all default space and overflow:0; -> fix page to not scroll*/
 body {
-  font-family: "Arial", sans-serif;
-  background-color: var(--primary-bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0;
+  overflow: hidden;
 }
 
 /* Add additional styles as needed */
 
 /* Create a container for the main content */
-.container {
-  max-width: 1000px;
-  width: 100%;
-  padding: 10px;
+/* *=universal selector*/
+/*Tutorial for make bacckground video. lnk = https://www.youtube.com/watch?v=-unASUgYtVI */
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  /*font-family:;*/
 }
+.container {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  max-width: none;
+  background: none;
+}
+
 
 /* Header styling */
 header {
@@ -65,14 +70,150 @@ nav a {
 }
 
 /* Media player styling */
+/*Make video be in the BG*/
 .media-player {
-  width: 100%;
-  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
 }
 
 .media-player video {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+/*Side Bar */
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80px;
+  background-color: var(--primary-bg-color);
+  padding: .4rem .8rem;
+  transition: all 0.5s ease;
+  z-index: 10; /* add dept so sidebar place on top video*/
+
+}
+
+/*make sidebar be able to decrease and increase the size*/
+.sidebar.active ~ .main-content {
+  left:250px;
+  width: calc(100% - 250px);
+}
+.sidebar.active{
+  width: 250px;
+}
+
+/*style Menu Icon*/
+.sidebar #menuBar {
+  position: absolute;
+  color: var(--text-color);
+  top:.4rem;
+  left: 50%;
+  font-size: 1.2rem;
+  line-height: 50px;
+  transform: translateX(-50%);
+  cursor:pointer 
+}
+
+.sidebar.active #menuBar {
+  left: 90%;
+}
+
+/*Styling LOGO*/
+.sidebar .top .logo {
+  color: var(--main-text-color);
+  display:flex;
+  height: 50px;
+  width: 100px;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0; /*because we don't want it to show when sidebar close*/
+  z-index: 15;
+}
+/*Add active class so when sidebar open, logo show */
+.sidebar.active .top .logo{
+  opacity: 1;
+}
+.top .logo{
+  font-size: 2rem;
+  margin-right: 5px;
+}
+
+/* List Item Styling*/
+/* create space around the text*/
+.sidebar ul li{
+  position: relative;
+  list-style-type: none;
+  height: 50px;
+  width: 90%;
+  margin: 0.8rem auto;
+  line-height: 50px;
+}
+
+
+.sidebar ul li a { 
+  color: var(--main-text-color);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 0.8rem;
+
+}
+.sidebar ul li a:hover {
+  background-color: #b27457;
+  color: var(--text-colorr);
+}
+
+/*add space btw icon and text*/
+.sidebar ul li a i {
+  min-width: 50px;
+  text-align: center;
+  height: 50px;
+  border-radius: 12px;
+  line-height: 50px;
+
+}
+
+/*when side bar close - only show icon, when side bar open - show text and icon*/
+.sidebar .environment-list {
+  opacity: 0;
+}
+
+.sidebar.active .environment-list {
+  opacity: 1;
+}
+
+/*Stylr tooltip*/
+.sidebar ul li .tooltip {
+  position: absolute;
+  left: 125px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0.2);
+  border-radius: .6rem;
+  padding: .4rem 1.2rem;
+  line-height: 1.8rem;
+  z-index: 20;
+  opacity: 0;
+}
+
+.sidebar ul li:hover .tooltip {
+  opacity: 1;
+
+}
+
+/*when sidebar is open - not show tooltip at all*/
+.sidebar.active ul li .tooltip {
+  display: none;
+}
+
 
 .custom-controls {
   display: flex;
@@ -84,7 +225,7 @@ nav a {
 }
 
 .custom-controls button {
-  background-color: var(--main-btn-bg-color);
+  background-color: var(--text-color);
   color: var(--main-text-color);
   border: none;
   padding: 8px 12px;
@@ -97,7 +238,7 @@ nav a {
 .progress-bar {
   width: 100%;
   height: 10px;
-  background-color: #ddd;
+  background-color: black;
   margin-top: 10px;
   overflow: hidden;
 }
