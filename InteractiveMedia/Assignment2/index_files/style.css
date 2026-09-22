@@ -260,6 +260,39 @@ footer {
   width: 100%;
 }
 
+/*Reference Page*/
+#reference-page {
+  display: none;
+  margin-left: 80px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rosybrown;
+  z-index: 5;
+  padding: 60px;
+  box-sizing: border-box;
+  
+}
+
+/* Reference page - Text*/
+#reference-page h1 {
+  font-size: 80px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-left: 450px;
+
+}
+#reference-page h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 14px;
+  margin-left: 150px;
+}
+#reference-page p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-left: 180px;
+
+}
 /*Slider stylr*/
 .volumeSlider {
   width: 80%;
