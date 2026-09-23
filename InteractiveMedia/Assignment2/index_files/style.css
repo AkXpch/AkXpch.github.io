@@ -266,16 +266,17 @@ footer {
   margin-left: 80px;
   width: 100vw;
   height: 100vh;
-  background-color: rosybrown;
+  background: linear-gradient(rosybrown, var(--main-text-color));
   z-index: 5;
   padding: 60px;
   box-sizing: border-box;
+  overflow-y: auto; /*added so page can scroll up,down*/
   
 }
 
 /* Reference page - Text*/
 #reference-page h1 {
-  font-size: 80px;
+  font-size: 60px;
   font-weight: bold;
   margin-bottom: 30px;
   margin-left: 450px;
@@ -284,22 +285,30 @@ footer {
 #reference-page h2 {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 14px;
+  margin-top: 17px;
+  margin-bottom: 10px;
   margin-left: 150px;
 }
 #reference-page p {
   font-size: 16px;
   margin-bottom: 10px;
   margin-left: 180px;
-
+}
+#reference-page a {
+  color: lemonchiffon;
 }
 /*Slider stylr*/
 .volumeSlider {
   width: 80%;
   margin-top: 20px;
   margin-left: 30px;
- 
+}
 
+#footer{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 600px
+  
 }
 
 .slider {
