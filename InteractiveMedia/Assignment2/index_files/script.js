@@ -133,4 +133,77 @@ volumeIcon.addEventListener("click", function(){
   }
   
 });
-  
+
+// Pomodoro Timer
+const start = document.getElementById("start");
+const stopButton = document.getElementById("stop");
+const reset = document.getElementById("reset");
+const plus = document.getElementById("plus");
+const timer = document.getElementById("timer");
+
+// create info for total time
+// 1500 bc we use 25 minutes(1500 seconds) 
+let timeLeft = 1500; 
+//interval -> use to constantly assigning current time
+let interval; 
+
+const updateTimer = () => {
+  //turn 1500s into minutes
+  const minutes = Math.floor(timeLeft / 60); // use Math.floor to make sure we get whole number.
+  const seconds = timeLeft % 60
+
+  // display minutes:seconds in timer
+  //.padStart(2, "0") = make minutes have 2 digits and if it go to 1 digit -> add "0" in the front
+  // Add toString() bacause minutes is not a string but "0" in padStart is a string. we need to make both to the same type so it can add to each other.
+  timer.innerHTML =`${minutes.toString().padStart(2, "0")} : ${seconds.toString().padStart(2, "0")}`;
+}
+
+const startTimer = () => {
+  // executed every 1s. to decrease the time. 
+  // setInterval functions take 2 argumant. 1. a function, 2. the time 
+  // Noted that setInterval() is executed the first function(() => {}) depend on the time(1000) [1000 -> 1000 ms = 1s.]
+  interval = setInterval(() => {
+    // decrease the time left by 1 
+    timeLeft--; // timeLeft = timeLeft - 1
+    //display it
+    updateTimer();
+
+    // if timer reach 0 -> alert user
+    if(timeLeft == 0){
+      clearInterval(interval);
+      alert("Timer Up!!");
+
+      //reset the clock
+      timeLeft = 1500;
+      //amd display it
+      updateTimer();
+    }
+
+
+  }, 1000)
+}
+// use clearInterval to stop the time
+const stopTimer = () => clearInterval(interval);
+
+// reset
+const resetTimer = () => {
+  //stop the time
+  clearInterval(interval);
+  //reset it by setting the time back to 25mins 
+  timeLeft =1500;
+  //display it
+  updateTimer();
+}
+//Add time button
+const addTime = () => {
+  // add 25 mins to current time
+  timeLeft = timeLeft + 1500;
+  //display time
+  updateTimer();
+}
+
+//Assign buttons
+start.addEventListener("click", startTimer);
+stopButton.addEventListener("click", stopTimer);
+reset.addEventListener("click", resetTimer);
+plus.addEventListener("click", addTime);
