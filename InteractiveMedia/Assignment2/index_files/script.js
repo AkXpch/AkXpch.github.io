@@ -71,4 +71,24 @@ referenceSidebar.addEventListener("click", function(){
 
 });
 
+// Slider Volume
+// Gemini is used in this section
+// Quote: "what kind of addevent listener volume slider use" and "what is the differnt mousemove and input"
+// Answer: "mousemove" is not recommended on its own. The volume will change whenever the mouse moves over the slider, 
+//          even if the user isn't clicking or dragging.
+// Disclaimer: "mousemove" is used in tutorial video but I use "input" because it is more suitable for this browser
+const volumeSlider = document.getElementById("slider-range");
+const volumeIcon = document.getElementById("volume-icon")
+volumeSlider.addEventListener("input", function(){
+  // Noted! video.volume expect 0-1 but in my case i use 0-100 that why i need to /100
+  video.volume = volumeSlider.value / 100;
+  //make icons change when volume change
+  if(video.volume == 0){
+    volumeIcon.className = "bx bxs-volume-mute";
+  } else if(video.volume < 0.5){
+    volumeIcon.className = "bx bxs-volume-low";
+  }else {
+    volumeIcon.className = "bx bxs-volume-full";
+  }
+});
   

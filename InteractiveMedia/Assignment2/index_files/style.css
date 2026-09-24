@@ -297,21 +297,46 @@ footer {
 #reference-page a {
   color: lemonchiffon;
 }
-/*Slider stylr*/
-.volumeSlider {
-  width: 80%;
-  margin-top: 20px;
-  margin-left: 30px;
-}
-
 #footer{
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 600px
-  
 }
 
+/*Slider style*/
+.slideContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 .slider {
+-webkit-appearance: none; /*use to change or disable default*/
+width: 100px;
+height: 12px;
+background: var(--main-text-color);
+outline: none;
+-webkit-transition: 0.2s;
+transition: opacity 0.2s;
+margin-top: 5px;
+margin-left: 28px;
+border-radius:25px;
+opacity: 0;
+}
+/*make the slider isappear when sidebar close*/
+/*In this case I can use oparcity or display: block or none
+oparcity -> make it show/disappear smoothly
+display -> just pop up*/
+.sidebar.active .slider{ /* NOTE!: don't forget to put a space between differnt class because 
+  sidebar.active.slider = slider is a child of sidebar.active class which is not true*/
+  opacity: 0.7;
+  pointer-events: auto;
+}
 
+#volume-icon {
+  z-index: 15;
+  font-size: 25px;
+  color: var(--main-text-color);
+  margin-left: 16px;
+  margin-top: 5px;
 }
 
