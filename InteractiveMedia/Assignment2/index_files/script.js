@@ -79,16 +79,58 @@ referenceSidebar.addEventListener("click", function(){
 // Disclaimer: "mousemove" is used in tutorial video but I use "input" because it is more suitable for this browser
 const volumeSlider = document.getElementById("slider-range");
 const volumeIcon = document.getElementById("volume-icon")
+
 volumeSlider.addEventListener("input", function(){
+
   // Noted! video.volume expect 0-1 but in my case i use 0-100 that why i need to /100
   video.volume = volumeSlider.value / 100;
   //make icons change when volume change
-  if(video.volume == 0){
+
+  //if volume more than 0(not muted)
+  if(video.volume > 0){
+    // save that value to previousVolume
+    previousVolume = video.volume;
+  }
+
+  // change icons depend on volume level
+  if(video.volume == 0) {
     volumeIcon.className = "bx bxs-volume-mute";
-  } else if(video.volume < 0.5){
+  }else if(video.volume < 0.5){
     volumeIcon.className = "bx bxs-volume-low";
-  }else {
+  } else {
     volumeIcon.className = "bx bxs-volume-full";
   }
+});
+
+// Muted when click volime icon
+// set before muted volume so when we unclick it is back to previous volume
+let previousVolume = 1
+
+volumeIcon.addEventListener("click", function(){
+  //if video is not muted (more than 0)
+  if(video.volume > 0){
+    //save that value to previousVolume
+    previousVolume = video.volume;
+    //set video volume to 0
+    video.volume = 0;
+    //set slider to 0
+    volumeSlider.value = 0;
+    //change icon to muted icon
+    volumeIcon.className = "bx bxs-volume-mute";
+
+  } else { //if video volume = 0(muted)
+    //change volume back to previous volume
+    video.volume = previousVolume
+    // change slider value to previous value (* 100 bc volume expect 0-1 but my slider use 0-100)
+    volumeSlider.value = previousVolume * 100;
+
+    // mchange icon back
+    if(video.volume < 0.5){
+      volumeIcon.className = "bx bxs-volume-low";
+    } else {
+      volumeIcon.className = "bx bxs-volume-full";
+  }
+  }
+  
 });
   
