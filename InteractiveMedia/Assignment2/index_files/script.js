@@ -43,9 +43,9 @@ environmentButtons.forEach(function(environment){
 
     //Hide referncePage
     referencePage.style.display = "none";
-
     //show the mediaPlayer
     mediaPlayer.style.display = "block";
+    timerContainer.style.display = "flex";
 
     let videoName = environment.dataset.video
 
@@ -61,13 +61,15 @@ environmentButtons.forEach(function(environment){
 // Don't forgot "" around Id !!!!
 const referenceSidebar = document.getElementById("reference-sidebar");
 const referencePage = document.getElementById("reference-page");
-
+const timerContainer = document.getElementById("timer-container");
 
 referenceSidebar.addEventListener("click", function(){
   //Show referencePage
   referencePage.style.display = "block";
   //Hide mediaPlayer
   mediaPlayer.style.display = "none";
+  //block timer not to show up in reference page
+  timerContainer.style.display= "none";
 
 });
 
