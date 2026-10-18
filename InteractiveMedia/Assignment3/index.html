@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer="defer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Edu+VIC+WA+NT+Hand:wght@400..700&family=Indie+Flower&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Oldenburg&family=Playfair+Display:wght@400..900&family=Pompiere&family=Roboto+Slab:wght@600&family=Rye&family=Stardos+Stencil:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+
+    <div id="home">
+        <!--Home-->
+        <img class="background" src="img/scene/home.png" alt="home-page">
+        <h1>Goodnight,<br> Bunny</h1>
+        <!--Button container - image + text-->
+        <div id="start-button">
+                <img src="img/assets/start button.png" alt="start-button">
+                <!--<span> is like <div> but use inline instead of block-->
+                <span class="buttonText">Start Game</span>
+
+        </div>
+        
+    </div>
+    <div id="scene-1">
+        <!--Brushing Teeth-->
+        <img class="background" src="img/scene/s.bathroom.png" alt="brushing teeth bg">
+        <img id="rabbit-teeth" src="img/assets/rabbit-teeth.PNG" alt="rabbit teeth">
+        <img id="toothbrush" src="img/assets/toothbrush.png" alt="toothbrush" draggable="true">
+        <img id="bubble-1" src="img/assets/bubble1.PNG" alt="bubble1">
+        <img id="bubble-2" src="img/assets/bubble2.PNG" alt="bubble2">
+        <img id="bubble-3" src="img/assets/bubble3.PNG" alt="bubble3">
+        <img id="bubble-4" src="img/assets/bubble4.PNG" alt="bubble4">
+        
+    </div>
+    <div id="scene-2">
+        <!--Button UP-->
+        <img class="background" src="img/scene/s.button up.png" alt="button up">
+        <img id="pajama" src="img/assets/pajama.png" alt="pajama">
+        <img id="rabbit-head" src="img/assets/rabbit-head.PNG" alt="rabbit-head">
+        <!--Button box contain 3 red buttons-->
+        <div class="buttonRegtangle"></div>
+            <img id="button1" src="img/assets/Button.png" draggable="true" alt="button1">
+            <img id="button2" src="img/assets/Button.png" draggable="true" alt="button2">
+            <img id="button3" src="img/assets/Button.png" draggable="true" alt="button3">
+        
+
+        <!--Grey Guide Buttons on pajama-->
+            <img id="button1-1" class="guideButton" src="img/assets/Button.png"  alt="First button">
+            <img id="button2-1" class="guideButton" src="img/assets/Button.png"  alt="Second button">
+            <img id="button3-1" class="guideButton" src="img/assets/Button.png"  alt="Third button">
+            
+    </div>
+    <div id="scene-3">    
+        <!--Day to night-->
+        <!-- <img class="background" src="img/scene/s.window.png" alt="purple-bg"> -->
+        <!-- <img id="window" src="img/assets/window.PNG" alt="window">
+        <img id="moon" src="img/assets/moon.PNG" alt="moon">
+        <img id="bunny-moon" src="img/assets/moon-bunny.PNG" alt="bunny-moon"> -->
+    </div>
+    <div id="scene-4">
+        <!--Light Off-->
+        <!-- <img class="background" src="img/scene/s.light.png" alt="light off"> -->
+
+        <canvas id="pullerSwitch"></canvas>
+        <!-- <img id="lamp" src="img/assets/lamp.png"> -->
+    </div>
+
+    
+</body>
+
+
+</html>
