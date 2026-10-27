@@ -343,3 +343,62 @@ if (travel >= 1 && nightAnimation == false){
 
 });
 
+//SCENE 4 - LIGHT OFF
+// C. Thomas (personal communication, October 6, 2026), The code used to create puling switch.
+
+const pullerSwitch = document.getElementById("pullerSwitch");
+const darkFilter = document.getElementById("dark-filter");
+const lamp = document.getElementById("lamp");
+const ctx = pullerSwitch.getContext("2d"); // drawing tool
+
+// Set the canvas size to match Scene 4
+pullerSwitch.width = pullerSwitch.offsetWidth;
+pullerSwitch.height = pullerSwitch.offsetHeight;
+
+let pulling = false;
+
+const weightPos = { y: pullerSwitch.height * 2 / 4 }; // Set starting position of pulling switch
+const targetPos = { y: pullerSwitch.height * 2 / 4 }; // where the switch return to
+const velocity  = { y: 0 }; // switch movement
+const mousePos  = { y: 0 }; // mouse position
+
+// START DRAWING
+
+function drawFrame(){
+    // Clear the canvas before drawing
+    ctx.clearRect(0, 0, pullerSwitch.width, pullerSwitch.height);
+
+    //string starting point
+    const stringX = pullerSwitch.width / 3.4; //left or right
+
+    // Draw the string
+    ctx.strokeStyle = "#f4b509";
+    ctx.lineWidth = 5;
+
+    const linkLength = weightPos.y / 300; // how many dash per line
+    ctx.setLineDash([linkLength, linkLength]);
+
+    ctx.beginPath();
+    ctx.moveTo(stringX, 0);
+    ctx.lineTo(stringX, weightPos.y);
+    ctx.stroke();
+
+    // Stop using the dashed line style
+    ctx.setLineDash([]);
+
+    // Draw the pink handle
+    ctx.fillStyle = "#f0174d";
+
+    //draw circle as the top part of handle
+    ctx.beginPath();
+    ctx.arc(stringX, weightPos.y, 12, 0, Math.PI * 2);
+    ctx.fill();
+    //draw oval as the bottom part of handle
+    ctx.beginPath();
+    ctx.ellipse(stringX, weightPos.y + 20, 10, 18, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    requestAnimationFrame(drawFrame);
+}
+//call function - draw the switch 
+requestAnimationFrame(drawFrame);
