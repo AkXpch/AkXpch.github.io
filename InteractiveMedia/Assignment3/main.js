@@ -40,7 +40,7 @@ startButton.addEventListener("click", function(){
     
 });
 
-
+//--------------------------------------------------------------------------------------------------
 
 // Scene 1 - Brushing teeth
 // Brush count = the more u brush -> bubble bigger -> goodjob scene -> next cene
@@ -131,6 +131,8 @@ function bubbleShow() {
     }
 }
 
+//--------------------------------------------------------------------------------------------------
+
 //OnlineTutorials(2026), Drag and Drop with JavaScript, https://www.youtube.com/watch?v=V_WEpWhpzwA
 //Scene2: Button UP
 const button1 = document.getElementById("button1");
@@ -158,8 +160,77 @@ function drop(guide){
 // guide = grey guide where red button should go, 
 // nextButton = next button will be able to drag when the previous button is in correct place, 
 // nextGuide = grey guide(blink) that show when previouss button completed.
+
+//! BUTTONS CAN ONLYY DRAG IN ORDER FROM TOP TO BOTTOM.
 function placeButton(button, guide, nextButton, nextGuide){
     guide.addEventListener("drop", function(event){
         event.preventDefault();
+        // Gemini(2026) is used in this process
+        // Promp: " I have the exact location for my object to be, is there anyway i can detect the position and tell object to be there"
+        // Answer: One way you can do it is use offset... to detect object's position.
+
+        // Move right,left to position
+        // set where the red button to be on top of guide button
+        //note = offset.... is use to read position
+        button.style.left = guide.offsetLeft + "px";
+        button.style.top = guide.offsetTop +"px";
+        button.style.width = guide.offsetWidth +"px";
+
+        // When red button is in correct position -> can't move anymore
+        button.draggable = false;
+        //Hide the guide button
+        guide.style.display = "none";
+
+        //make the next red button moveable
+        if (nextButton != null){
+            nextButton.draggable = true;
+        }
+
+        //show the next guide 
+        if (nextGuide != null){
+            nextGuide.style.display = "block";
+        }
+
+
+
     })
 }
+
+//Use function
+//tell guide button to let red button drop on it
+drop(guide1);
+drop(guide2);
+drop(guide3);
+
+// tell position of where red button should be drop to
+// placeButton(button, guide, nextButton, nextGuide)
+placeButton(button1, guide1, button2, guide2);
+placeButton(button2, guide2, button3, guide3);
+placeButton(button3, guide3, null, null);
+
+//PROBLEM - The red button change it shape while dragging - 
+// -I still cannot find the way to keep it shape to stay as it show while the player dragging it
+
+//-----------------------------------------------------------------------------------------------
+
+// SCENE 3 - DRAG SUN DOWN -> MOON UP
+//STEP
+//1. sun down -> sky darker / sun dowm -> moon move up
+//2. sun reach bottom -> change to scene 4
+
+const sky = document.getElementById("sky");
+const moon = document.getElementById("moon");
+const sun = document.getElementById("sun");
+
+let dragging = false;
+let nightAnimation = false;
+
+let dragStartY= 0;
+let sunStartY = 0;
+
+const skyTop = sky.offsetTop;
+const skyBottom = sky.offsetTop + sky.offsetHeight;
+
+const sunStart = sun.offsetTop;
+const sunEnd = skyBottom - sun.offsetHeight;
+
