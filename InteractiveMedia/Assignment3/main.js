@@ -134,6 +134,7 @@ function bubbleShow() {
 //--------------------------------------------------------------------------------------------------
 
 //OnlineTutorials(2026), Drag and Drop with JavaScript, https://www.youtube.com/watch?v=V_WEpWhpzwA
+//Use in Drag and Drop function
 //Scene2: Button UP
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -217,20 +218,128 @@ placeButton(button3, guide3, null, null);
 //STEP
 //1. sun down -> sky darker / sun dowm -> moon move up
 //2. sun reach bottom -> change to scene 4
+// CodeGrind(2020), "How to create a Draggable Element for your web-page using JS and CSS? Complete tutorial | Code Grind", https://www.youtube.com/watch?v=AtLFLSG8YXw
+// AI is used in this section with tutorial video.
 
 const sky = document.getElementById("sky");
 const moon = document.getElementById("moon");
 const sun = document.getElementById("sun");
+const moonStart = moon.offsetTop;
 
 let dragging = false;
 let nightAnimation = false;
 
-let dragStartY= 0;
-let sunStartY = 0;
+let dragStartY= 0; //mouse Y position when start draggging
+let sunStartY = 0; //sun position when dragging start
+//Dragging sun down
 
+sun.addEventListener("pointerdown", function(event){
+    //if the night animation activate-> cannot drag again
+    if (nightAnimation == true){
+    }
+
+    dragging = true;
+    dragStartY= event.clientY; 
+    sunStartY = sun.offsetTop; 
+
+    sun.setPointerCapture(event.pointerId); // captures the pointer interaction.
+
+    event.preventDefault(); // tell browser not do default interaction
+});
+// Set the boundary line of sky so the element only move inside window
+//find Top and bottom of the sky
 const skyTop = sky.offsetTop;
 const skyBottom = sky.offsetTop + sky.offsetHeight;
 
+// sun start and end position
 const sunStart = sun.offsetTop;
-const sunEnd = skyBottom - sun.offsetHeight;
+const sunEnd =  moonStart;
+// Change sky colour while moving the sun
+// ChantGPT(2026) is used in this code.
+// Promp: "How can I make bg colour change as I dragging object, css, js", "How to make another object move up when i drag another object(image) down, js, html, css"
+
+//this function will pointer move while interact with the sun
+sun.addEventListener("pointermove", function(event){
+    
+    //if player not drag = sun not move
+    if(dragging == false){
+        return;
+    }
+    //find how much pointer have moved
+    let movement = event.clientY - dragStartY;
+    //where the sun should move - we do this bc the pointer might not be exactlyb on top of the sun when player dragging
+    let newSunY = sunStartY + movement;
+
+    // Note: vertical -> larger when move down
+    //check if new position smaller than previous one, so sun cannot move up only move down
+    if (newSunY < sunStart){
+        newSunY = sunStart;
+    }
+    //prevent sun from moving below the window flame
+    if (newSunY > sunEnd){
+        newSunY = sunEnd;
+    }
+    // make the sun move by changing "top" in css
+    sun.style.top = newSunY + "px";
+   
+    // sunMove = how far the sun has moved
+    let sunMove = newSunY - sunStart;
+
+    // Move the moon upwards
+    let moonNewY = moonStart - sunMove;
+    moon.style.top = moonNewY + "px";
+
+   
+
+
+
+    // travel = How far sun travel from the original position/ total distance the sun can traavel
+    let travel = (newSunY - sunStart)/(sunEnd - sunStart);
+
+    // 0 = starting point | 0.5 = the sun half way down | 1 = the sun has reach the bottom
+    //make sure it wont go below 0
+    if (travel < 0) {
+        travel = 0;
+    }
+    // value only between 0 to 1, so we make sure the valuw wont go above 1
+    if (travel > 1){
+        travel = 1;
+    }
+    // Make the moon gradually show up
+    moon.style.opacity = travel;
+    // Make the sun gradually disappear
+    sun.style.opacity = 1 - travel;
+
+
+    //CHANGE SKY FROM SUN TO NIGHT (pink -> navy)
+    if (travel < 0.5) {
+        sky.style.backgroundColor = "#ffd4c6";
+    } else {
+        sky.style.backgroundColor = "#24385e";
+    }
+
+    // Check if sun reach buttom
+//check if the sun traveln down to the bottom(1) and have the animation start yet?
+if (travel >= 1 && nightAnimation == false){
+    //make the night animation start and fix the sun position so player cannot move
+    nightAnimation = true;
+    dragging = false;
+
+    // WHEN THE SUN REACH THE BOTTOM -> MAKE IT DISAPEAR
+    sun.style.transition = "opacity 0.15s";
+    sun.style.opacity = "0"; // 0 = invisible , 1 = visible
+
+    // The moon fully show up
+    moon.style.transition = "opacity 0.15s, top 0.7s ease-out";
+    moon.style.opacity = "1";
+    // the moon move up to where the sun was
+    moon.style.top = sunStart + "px";
+
+    //call function and move to next scene
+    setTimeout(function() {
+        nextScene(nightScene, lightScene);
+    }, 850);
+}
+
+});
 
