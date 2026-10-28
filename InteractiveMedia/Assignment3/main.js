@@ -31,12 +31,31 @@ function nextScene(currentScene, nextScene){
         targetPos.y = pullerSwitch.height / 2;
     }
 }
-// call nextScene function
-//nextScene(home, teethScene);
+//--------------------------------------------------------------------------------
+//  ADD AUDIOS
+//BG music
+const backgroundMusic = new Audio("audios/a.bg-music.mp3");
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.1;
 
-// nextScene(buttonScene, nightScene);
-// nextScene(nightScene, lightScene);
+//Brushing sound 
+const brushingSound = new Audio("audios/a.brushing teeth.mp3");
+brushingSound.loop = true;
+brushingSound.volume = 0.8;
 
+//Button sound effect
+const buttonSound = new Audio("audios/a.button.mp3");
+buttonSound.volume = 0.5;
+
+//Dragging sun sound effect
+const sunSound = new Audio("audios/a.star.mp3");
+sunSound.volume = 0.4;
+
+//Pulling Light switch sound effect
+const switchSound = new Audio("audios/a.light.mp3")
+switchSound.volume = 0.5;
+
+//--------------------------------------------------------------------------------
 
 // Test next scene fnction
 const homeScene = document.getElementById("home");
@@ -56,6 +75,8 @@ const teethScene = document.getElementById("scene-1");
 const startButton = document.getElementById("start-button")
 
 startButton.addEventListener("click", function(){
+    backgroundMusic.play();
+
     homeScene.style.display = "none";
     teethScene.style.display = "block";
     
@@ -89,6 +110,10 @@ let previousMouseX = null;
 toothbrush.addEventListener("dragstart", function(event){
     isBrushing = true;
     previousMouseX = event.clientX
+
+    // Play brushing sound
+    brushingSound.currentTime = 0;
+    brushingSound.play();
 
     // Allow the toothbrush to be dragged again
     event.dataTransfer.effectAllowed = "move";
@@ -127,6 +152,10 @@ document.addEventListener("dragover", function(event){
 toothbrush.addEventListener("dragend", function(){
     isBrushing = false;
     previousMouseX = null;
+
+    // stop brushing sound
+    brushingSound.pause();
+    brushingSound.currentTime = 0;
 })
 
 
@@ -153,10 +182,9 @@ function bubbleShow() {
 }
 
 //--------------------------------------------------------------------------------------------------
-
+//Scene2: Button UP
 //OnlineTutorials(2026), Drag and Drop with JavaScript, https://www.youtube.com/watch?v=V_WEpWhpzwA
 //Use in Drag and Drop function
-//Scene2: Button UP
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
 const button3 = document.getElementById("button3");
@@ -187,6 +215,10 @@ function drop(guide){
 function placeButton(button, guide, nextButton, nextGuide){
     guide.addEventListener("drop", function(event){
         event.preventDefault();
+
+        // Play sound when release button
+        buttonSound.currentTime = 0;
+        buttonSound.play();
         // Gemini(2026) is used in this process
         // Promp: " I have the exact location for my object to be, is there anyway i can detect the position and tell object to be there"
         // Answer: One way you can do it is use offset... to detect object's position.
@@ -269,6 +301,11 @@ sun.addEventListener("pointerdown", function(event){
     }
 
     dragging = true;
+
+    // Play sound effect when dragging
+    sunSound.currentTime = 0;
+    sunSound.play();
+
     dragStartY= event.clientY; 
     sunStartY = sun.offsetTop; 
 
@@ -366,6 +403,7 @@ if (travel >= 1 && nightAnimation == false){
 }
 
 });
+//--------------------------------------------------------------------------------------------------------------
 
 //SCENE 4 - LIGHT OFF
 // C. Thomas (personal communication, October 6, 2026), The code used to create puling switch.
@@ -457,7 +495,9 @@ const dragFriction = 0.92;
 const springStrength = 0.17;
 function moveSwitch() {
     if (pulling == true) {
+
         weightPos.y = mousePos.y; // switch follows the mouse's Y position
+
     } else { // pulling effect
         const dy = targetPos.y - weightPos.y; // spring back up
 
@@ -520,6 +560,10 @@ pullerSwitch.addEventListener("pointerup", function() {
     if (weightPos.y > pullerSwitch.height * 0.70) {
         // turn off the light
         darkFilter.style.display = "block";
+
+        // Play the switch sound
+        switchSound.currentTime = 0;
+        switchSound.play();
 
         // wait 2 seconds(2000 milliseconds) then hide scene 4 and show ending
         setTimeout(function() {
