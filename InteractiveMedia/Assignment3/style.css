@@ -45,14 +45,14 @@ body{
     
     
 }
-#home,
 #scene-1,
 #scene-2,
 #scene-3,
+#scene-4,
 #end{
     display: none;
 }
-#scene-4{
+#home{
     display: block;
 }
 /* Home */
@@ -391,4 +391,15 @@ body{
 
     pointer-events: none;
     z-index: 20;
+}
+/*THe End Text*/
+#end {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 100;
 }

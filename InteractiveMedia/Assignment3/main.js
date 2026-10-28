@@ -9,6 +9,27 @@ const lightScene = document.getElementById("scene-4")
 function nextScene(currentScene, nextScene){
     currentScene.style.display = "none";
     nextScene.style.display = "block";
+
+    //ChatGPT is used to fix the problem
+    //promp: scene 4 is work normally when it is "block" but when it hidden the canvas 
+        // also disappear with it even after scene 3 finish and scene 4 show up, canvas still not show up
+
+    // Get Scene 3 positions 
+    if (nextScene.id == "scene-3") {
+        moonStart = moon.offsetTop;
+        sunStart = sun.offsetTop;
+        sunEnd = moonStart;
+    }
+
+    // Resize the puller canvas when Scene 4 becomes visible
+    if (nextScene.id == "scene-4") {
+        pullerSwitch.width = pullerSwitch.offsetWidth;
+        pullerSwitch.height = pullerSwitch.offsetHeight;
+
+        // Reset the switch to the middle of the canvas
+        weightPos.y = pullerSwitch.height / 2;
+        targetPos.y = pullerSwitch.height / 2;
+    }
 }
 // call nextScene function
 //nextScene(home, teethScene);
@@ -191,11 +212,14 @@ function placeButton(button, guide, nextButton, nextGuide){
         if (nextGuide != null){
             nextGuide.style.display = "block";
         }
-
-
-
+        // If all buttons filled, go to next scene
+        if (nextButton == null) {
+        nextScene(buttonScene, nightScene);
+        }
     })
 }
+
+
 
 //Use function
 //tell guide button to let red button drop on it
@@ -208,6 +232,9 @@ drop(guide3);
 placeButton(button1, guide1, button2, guide2);
 placeButton(button2, guide2, button3, guide3);
 placeButton(button3, guide3, null, null);
+
+
+
 
 //PROBLEM - The red button change it shape while dragging - 
 // -I still cannot find the way to keep it shape to stay as it show while the player dragging it
@@ -224,15 +251,18 @@ placeButton(button3, guide3, null, null);
 const sky = document.getElementById("sky");
 const moon = document.getElementById("moon");
 const sun = document.getElementById("sun");
-const moonStart = moon.offsetTop;
+
 
 let dragging = false;
 let nightAnimation = false;
 
 let dragStartY= 0; //mouse Y position when start draggging
 let sunStartY = 0; //sun position when dragging start
-//Dragging sun down
+let moonStart;
+let sunStart;
+let sunEnd;
 
+//Dragging sun down
 sun.addEventListener("pointerdown", function(event){
     //if the night animation activate-> cannot drag again
     if (nightAnimation == true){
@@ -246,14 +276,8 @@ sun.addEventListener("pointerdown", function(event){
 
     event.preventDefault(); // tell browser not do default interaction
 });
-// Set the boundary line of sky so the element only move inside window
-//find Top and bottom of the sky
-const skyTop = sky.offsetTop;
-const skyBottom = sky.offsetTop + sky.offsetHeight;
 
-// sun start and end position
-const sunStart = sun.offsetTop;
-const sunEnd =  moonStart;
+
 // Change sky colour while moving the sun
 // ChantGPT(2026) is used in this code.
 // Promp: "How can I make bg colour change as I dragging object, css, js", "How to make another object move up when i drag another object(image) down, js, html, css"
@@ -492,16 +516,21 @@ pullerSwitch.addEventListener("pointerup", function() {
     pulling = false;
     velocity.y = 0; // reset
 
-    // Check whether the player pulled far enough (75% of canvas)
-    if (weightPos.y > pullerSwitch.height * 0.75) {
-        // Turn off the light
+    // Check whether the player pulled far enough (50% of canvas)
+    if (weightPos.y > pullerSwitch.height * 0.70) {
+        // turn off the light
         darkFilter.style.display = "block";
 
-        // Go to the ending
+        // wait 2 seconds(2000 milliseconds) then hide scene 4 and show ending
         setTimeout(function() {
-            // wait 3 seconds(3000 milliseconds) then hide scene 4 and show ending
             nextScene(lightScene, document.getElementById("end"));
-        }, 3000); 
+
+            // wait 1 second, then return home
+            setTimeout(function() {
+                nextScene(document.getElementById("end"), homeScene);
+                darkFilter.style.display = "none";
+            },1000);
+        }, 2000); 
     } else {
         // If player not pull far enough then we reset nand back to start
         targetPos.y = pullerSwitch.height / 2;
