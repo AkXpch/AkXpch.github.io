@@ -356,6 +356,12 @@ pullerSwitch.width = pullerSwitch.offsetWidth;
 pullerSwitch.height = pullerSwitch.offsetHeight;
 
 let pulling = false;
+//set state so we canlet let player know this is pullable by swinging
+let swinging = true;
+let swingAngle = 0;
+let swingDirection = 1;
+
+let dragOffsetY = 0;
 
 const weightPos = { y: pullerSwitch.height * 2 / 4 }; // Set starting position of pulling switch
 const targetPos = { y: pullerSwitch.height * 2 / 4 }; // where the switch return to
@@ -367,9 +373,29 @@ const mousePos  = { y: 0 }; // mouse position
 function drawFrame(){
     // Clear the canvas before drawing
     ctx.clearRect(0, 0, pullerSwitch.width, pullerSwitch.height);
+    //call function
+    moveSwitch();
 
     //string starting point
     const stringX = pullerSwitch.width / 3.4; //left or right
+
+    // Make the switch swing before the player grabs it
+    if (swinging) {
+        swingAngle += 0.002 * swingDirection;
+
+        if (swingAngle > 0.10) {
+            swingDirection = -1;
+        }
+
+        if (swingAngle < -0.10) {
+            swingDirection = 1;
+        }
+    }
+    // Swing around the top of the string
+    ctx.save();
+    ctx.translate(stringX, 0);
+    ctx.rotate(swingAngle);
+
 
     // Draw the string
     ctx.strokeStyle = "#f4b509";
@@ -379,8 +405,8 @@ function drawFrame(){
     ctx.setLineDash([linkLength, linkLength]);
 
     ctx.beginPath();
-    ctx.moveTo(stringX, 0);
-    ctx.lineTo(stringX, weightPos.y);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, weightPos.y);
     ctx.stroke();
 
     // Stop using the dashed line style
@@ -391,14 +417,98 @@ function drawFrame(){
 
     //draw circle as the top part of handle
     ctx.beginPath();
-    ctx.arc(stringX, weightPos.y, 12, 0, Math.PI * 2);
+    ctx.arc(0, weightPos.y, 12, 0, Math.PI * 2);
     ctx.fill();
     //draw oval as the bottom part of handle
     ctx.beginPath();
-    ctx.ellipse(stringX, weightPos.y + 20, 10, 18, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, weightPos.y + 20, 10, 18, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
 
     requestAnimationFrame(drawFrame);
 }
+
+// PULLING AND SPRING THE SWITCH
+const dragFriction = 0.92;
+const springStrength = 0.17;
+function moveSwitch() {
+    if (pulling == true) {
+        weightPos.y = mousePos.y; // switch follows the mouse's Y position
+    } else { // pulling effect
+        const dy = targetPos.y - weightPos.y; // spring back up
+
+        velocity.y += dy * springStrength; // how strong string pull
+        velocity.y *= dragFriction;
+        weightPos.y += velocity.y;
+    }
+}
+
+// START DRAGGING
+pullerSwitch.addEventListener("pointerdown", function(event) {
+    const rect = pullerSwitch.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    // Check if player clicked around the handle
+    // Gemini is used in this part
+    // Promp: " How can i set condition for this situation to make the mouse click detect not just on the object but around the objeect as well"
+    if (
+        // it will count if player click arounf 60px around(left and right) the handle
+        Math.abs(mouseX - pullerSwitch.width / 3.4) < 60 && 
+        //check if player click in the right area ( not too high or too low)
+        mouseY > weightPos.y - 25 &&
+        mouseY < weightPos.y + 55
+    ) {
+        pulling = true;
+        swinging = false;
+        // Stop any leftover spring movement
+        velocity.y = 0;
+        mousePos.y = mouseY;
+
+        pullerSwitch.setPointerCapture(event.pointerId); // kepp track of pointer
+        event.preventDefault();
+    }
+});
+
+// DRAG THE SWITCH
+pullerSwitch.addEventListener("pointermove", function(event) {
+    // make switch not follow mouse when player not dragging
+    if (pulling == false) {
+        return;
+    }
+
+    const rect = pullerSwitch.getBoundingClientRect();
+    mousePos.y = event.clientY - rect.top;
+});
+
+
+// RELEASE THE SWITCH
+pullerSwitch.addEventListener("pointerup", function() {
+    //run when player not pulling, release the mouse
+    if (pulling == false) {
+        return;
+    }
+
+    pulling = false;
+    velocity.y = 0; // reset
+
+    // Check whether the player pulled far enough (75% of canvas)
+    if (weightPos.y > pullerSwitch.height * 0.75) {
+        // Turn off the light
+        darkFilter.style.display = "block";
+
+        // Go to the ending
+        setTimeout(function() {
+            // wait 3 seconds(3000 milliseconds) then hide scene 4 and show ending
+            nextScene(lightScene, document.getElementById("end"));
+        }, 3000); 
+    } else {
+        // If player not pull far enough then we reset nand back to start
+        targetPos.y = pullerSwitch.height / 2;
+        swinging = true;
+    }
+});
+
 //call function - draw the switch 
 requestAnimationFrame(drawFrame);
+
