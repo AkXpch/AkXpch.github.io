@@ -401,5 +401,43 @@ body{
     width: 100vw;
     height: 100vh;
     background: black;
-    z-index: 100;
+    z-index: 50;
+}
+h3{
+    position: absolute;
+    top: 73.5%;
+    left: 45%;
+    z-index: 80;
+
+    color: white;
+    font-family: "Pompiere", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    font-style: normal;
+
+}
+#s3-text{
+    position: absolute;
+    top: 65%;
+    left: 45%;
+    z-index: 80;
+
+    color: rgb(25, 29, 151);
+    font-family: "Pompiere", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    font-style: normal;
+}
+
+#gn-text{
+    position: absolute;
+    top: 38%;
+    left: 40%;
+    z-index: 80;
+
+    color: white;
+    font-family: "Pompiere", sans-serif;
+    font-weight: 400;
+    font-size: 100px;
+    font-style: normal;
 }
