@@ -1,3 +1,9 @@
+// NOTE! 
+// This game is supposed to work in a loop, so after the last scene,
+// the page returns to the home page.
+// However, I couldn't figure out how to reset each scene after playing.
+// Because of this, the player cannot play a second round.
+//--------------------------------------------------------------------------------------
 
 // nextScene function = make next scene start ater the current scene finish
 
